@@ -14,4 +14,7 @@
             <li>Outposts.WITab_Outpost_Needs</li>
         </inspectorTabs>
     </WorldObjectDef>
+    <comps>
+        <li Class="WorldObjectCompProperties_TimedForcedExitOutpost" />
+    </comps>
 </Defs>
