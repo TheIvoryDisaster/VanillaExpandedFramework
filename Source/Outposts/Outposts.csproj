@@ -79,6 +79,8 @@
     <Compile Include="Outpost\Outpost_Deliveries.cs" />
     <Compile Include="Outpost\Outpost_Needs.cs" />
     <Compile Include="Outpost\Outpost_Utilities.cs" />
+    <Compile Include="Outpost\TimedForcedExitOutpost.cs" />
+    <Compile Include="Outpost\WorldObjectCompProperties_TimedForcedExitOutpost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransportPodsArrivalAction_AddToOutpost.cs" />
     <Compile Include="Utils.cs" />

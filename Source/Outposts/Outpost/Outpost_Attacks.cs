@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using KCSG;
 using RimWorld;
+using RimWorld.Planet;
 using Verse;
 
 namespace Outposts
@@ -34,25 +35,21 @@ namespace Outposts
                 Find.LetterStack.ReceiveLetter("Outposts.Letters.Lost.Label".Translate(), "Outposts.Letters.Lost.Text".Translate(Name),
                     LetterDefOf.NegativeEvent);
                 alsoRemoveWorldObject = true;
+                this.CombatResolved = true;
                 return true;
             }
 
             var pawns = Map.mapPawns.AllPawns.ListFullCopy();
-            if (!pawns.Any(p => p.HostileTo(Faction.OfPlayer)))
+            if (!pawns.Any(p => p.HostileTo(Faction.OfPlayer)) && !this.CombatResolved)
             {
+                this.CombatResolved = true;
                 occupants.Clear();
                 Find.LetterStack.ReceiveLetter("Outposts.Letters.BattleWon.Label".Translate(), "Outposts.Letters.BattleWon.Text".Translate(Name),
                     LetterDefOf.PositiveEvent,
                     new LookTargets(Gen.YieldSingle(this)));
-                foreach (var pawn in pawns.Where(pawn => pawn.Faction is {IsPlayer: true} || pawn.HostFaction is {IsPlayer: true}))
-                {
-                    pawn.DeSpawn();
-                    occupants.Add(pawn);
-                }
-
-                RecachePawnTraits();
                 alsoRemoveWorldObject = false;
-                return true;
+                this.GetComponent<TimedForcedExitOutpost>().StartForceExitAndRemoveMapCountdown();
+                return false;
             }
 
             alsoRemoveWorldObject = false;

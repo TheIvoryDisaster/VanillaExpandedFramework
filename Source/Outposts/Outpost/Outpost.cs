@@ -35,6 +35,8 @@ namespace Outposts
         public IEnumerable<Thing> Things => containedItems;
         public IEnumerable<Pawn> CapablePawns => AllPawns.Where(IsCapable);
 
+        public bool CombatResolved = false;
+
         public override Material Material
         {
             get
